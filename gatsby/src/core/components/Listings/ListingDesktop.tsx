@@ -28,6 +28,10 @@ import {
   Debugger,
   Pingpong,
 } from "../../../core"
+import {
+  Flash,
+  MovieClip,
+} from "../../../plugins/Flash"
 
 export default function ListingDesktop(props: any) {
   const dispatch = usePwaDispatch()
@@ -42,7 +46,6 @@ export default function ListingDesktop(props: any) {
     siteTitle,
     siteDescription,
   } = siteMeta
-  let children: any = false
   let doc: any = null
   let title = siteTitle
   let description = siteDescription
@@ -70,8 +73,8 @@ export default function ListingDesktop(props: any) {
     icon = frontmatter.icon
     flag = frontmatter.flag
   }
-  if (!paid) children = true
   const {sharing} = glConfig
+  const flash = false
 
   return <>
     <Container maxWidth="md" sx={{mb: "100px"}}>
@@ -104,11 +107,20 @@ export default function ListingDesktop(props: any) {
         {image ? <Grid item xs={12} sm={8}>
               <Debugger />
               <Box sx={{mb:2}}>
-                <Image 
-                  alt={`${title}. ${description}`}
-                  src={image}
-                  height={250}
-                />
+                { flash ? <>
+                  <Flash 
+                    flashId="test"
+                    height={250}
+                  >
+                    Flash
+                  </Flash>
+                </> : <>
+                  <Image 
+                    alt={`${title}. ${description}`}
+                    src={image}
+                    height={250}
+                  />
+                </> }
               </Box>
 
               <Box sx={{display: "flex"}}>
